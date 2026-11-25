@@ -26,6 +26,8 @@ I plan to use RISC V 64 bit. So need qemu-system-misc. I have Mint/Ubuntu linux.
 ### Setup rust.
 I assume you have rust installed and running. 
 1. Add target: `rustup target add riscv64gc-unknown-none-elf`
+2. Install cargo-binutil for objdump: `cargo install cargo-binutils`
+3. Install the underlying llvm tools: `rustup component add llvm-tools`
 
 ## Run project.
 1. Build using `cargo build`
