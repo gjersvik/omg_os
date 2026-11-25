@@ -22,3 +22,7 @@ I plan to use RISC V 64 bit. So need qemu-system-misc. I have Mint/Ubuntu linux.
     -bios /usr/lib/riscv64-linux-gnu/opensbi/generic/fw_jump.bin`
 3. Use the **QEMU RISC-V: Debug** config
 4. You can terminate from debugger.
+
+### Setup rust.
+I assume you have rust installed and running. 
+1. Add target: `rustup target add riscv64gc-unknown-none-elf`
