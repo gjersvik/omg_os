@@ -6,7 +6,7 @@
     "label": "QEMU RISC-V: Debug",
     "adapter": "GDB",
     "request": "launch",
-    "program": "/usr/lib/riscv64-linux-gnu/opensbi/generic/fw_jump.elf",
+    "program": "./target/riscv64gc-unknown-none-elf/debug/omg_os",
     "gdb_path": "/usr/bin/gdb-multiarch",
     "gdb_args": [
       "-ex", "set architecture riscv:rv64",

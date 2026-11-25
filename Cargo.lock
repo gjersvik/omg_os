@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "OmgOS"
+name = "omg_os"
 version = "0.1.0"

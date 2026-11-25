@@ -26,3 +26,10 @@ I plan to use RISC V 64 bit. So need qemu-system-misc. I have Mint/Ubuntu linux.
 ### Setup rust.
 I assume you have rust installed and running. 
 1. Add target: `rustup target add riscv64gc-unknown-none-elf`
+
+## Run project.
+1. Build using `cargo build`
+2. Run using `qemu-system-riscv64 -machine virt -s -S -m 256M -nographic  \
+    -bios none --kernel ./target/riscv64gc-unknown-none-elf/debug/omg_os`
+3. Use the **QEMU RISC-V: Debug** config
+4. You can terminate from debugger.
