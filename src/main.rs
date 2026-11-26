@@ -1,6 +1,8 @@
 #![no_std]
 #![no_main]
 
+mod qemu;
+
 use core::{arch::global_asm, ptr};
 
 //Sets up the globals and stack pointer.
@@ -30,7 +32,7 @@ global_asm!(
 #[unsafe(no_mangle)]
 pub extern "C" fn start() -> ! {
     uart_puts("Hello, world!\r\n");
-    qemu_exit(0x5555)
+    qemu::exit_normally()
 }
 
 const UART_BASE: *mut u8 = 0x1000_0000 as *mut u8;
@@ -48,14 +50,7 @@ fn uart_puts(s: &str) {
     }
 }
 
-fn qemu_exit(code: u32) -> ! {
-    unsafe {
-        *(0x100000 as *mut u32) = code;
-    }
-    loop {}
-}
-
 #[panic_handler]
 fn panic(_info: &core::panic::PanicInfo) -> ! {
-    loop {}
+    qemu::exit_failure()
 }
