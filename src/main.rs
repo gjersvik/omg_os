@@ -1,12 +1,13 @@
 #![no_std]
 #![no_main]
 
+mod console;
 mod qemu;
 mod uart;
 
 use core::arch::global_asm;
 
-use crate::uart::Uart;
+use crate::{console::Console, uart::Uart};
 
 // Sets up the globals and stack pointer.
 // This is the minimum for rust core.
@@ -34,11 +35,9 @@ global_asm!(
 
 #[unsafe(no_mangle)]
 pub extern "C" fn start() -> ! {
-    let mut uart = Uart::claim().unwrap();
-    let message = "Hello, world!\r\n";
-    for b in message.bytes() {
-        uart.put(b);
-    }
+    let uart = Uart::claim().unwrap();
+    let mut console = Console::new(uart);
+    console.println("Hello, world!");
 
     qemu::exit_normally()
 }

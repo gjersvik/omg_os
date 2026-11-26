@@ -17,7 +17,7 @@ impl Uart {
 
     pub fn claim() -> Option<Uart> {
         let claimed = CLAIMED.swap(true, Ordering::SeqCst);
-        if claimed != false {
+        if claimed == false {
             Some(Uart { _private: () })
         } else {
             None

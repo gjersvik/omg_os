@@ -29,6 +29,6 @@ SECTIONS
     }
 
     . = ALIGN(16);
+    . += 32768;  /* 32 KiB stack */
     _stack_top = .;
-    . += 4096;  /* 4 KiB stack */
 }
