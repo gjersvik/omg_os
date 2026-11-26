@@ -34,7 +34,7 @@ global_asm!(
 
 #[unsafe(no_mangle)]
 pub extern "C" fn start() -> ! {
-    let mut uart = Uart;
+    let mut uart = Uart::claim().unwrap();
     let message = "Hello, world!\r\n";
     for b in message.bytes() {
         uart.put(b);

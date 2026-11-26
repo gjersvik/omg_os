@@ -1,13 +1,29 @@
+use core::sync::atomic::{AtomicBool, Ordering};
+
 // The first address for the UART registers.
 const BASE: *mut u8 = 0x1000_0000 as *mut u8;
 
 // Flags
 const LSR_THR_EMPTY: u8 = 1 << 5; // the 5 bit
 
-pub struct Uart;
+pub struct Uart {
+    _private: (),
+}
+
+static CLAIMED: AtomicBool = AtomicBool::new(false);
 
 impl Uart {
     // --High level api.--
+
+    pub fn claim() -> Option<Uart> {
+        let claimed = CLAIMED.swap(true, Ordering::SeqCst);
+        if claimed != false {
+            Some(Uart { _private: () })
+        } else {
+            None
+        }
+    }
+
     pub fn put(&mut self, val: u8) {
         while !self.thr_empty() {}
         self.write_thr(val);
