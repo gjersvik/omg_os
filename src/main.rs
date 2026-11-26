@@ -2,10 +2,13 @@
 #![no_main]
 
 mod qemu;
+mod uart;
 
-use core::{arch::global_asm, ptr};
+use core::arch::global_asm;
 
-//Sets up the globals and stack pointer.
+use crate::uart::Uart;
+
+// Sets up the globals and stack pointer.
 // This is the minimum for rust core.
 // Calls the start function.
 global_asm!(
@@ -31,23 +34,13 @@ global_asm!(
 
 #[unsafe(no_mangle)]
 pub extern "C" fn start() -> ! {
-    uart_puts("Hello, world!\r\n");
-    qemu::exit_normally()
-}
-
-const UART_BASE: *mut u8 = 0x1000_0000 as *mut u8;
-
-fn uart_putc(c: u8) {
-    // Poll LSR bit 5 (THR empty) — not strictly needed in QEMU,
-    // but correct practice and required on real hardware.
-    while unsafe { ptr::read_volatile(UART_BASE.add(5)) & 0x20 } == 0 {}
-    unsafe { ptr::write_volatile(UART_BASE, c) }
-}
-
-fn uart_puts(s: &str) {
-    for b in s.bytes() {
-        uart_putc(b);
+    let mut uart = Uart;
+    let message = "Hello, world!\r\n";
+    for b in message.bytes() {
+        uart.put(b);
     }
+
+    qemu::exit_normally()
 }
 
 #[panic_handler]
