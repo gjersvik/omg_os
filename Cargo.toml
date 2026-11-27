@@ -3,4 +3,9 @@ name = "omg_os"
 version = "0.1.0"
 edition = "2024"
 
+[[bin]]
+name = "omg_os"
+test = false
+bench = false
+
 [dependencies]
