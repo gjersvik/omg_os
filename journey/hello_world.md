@@ -21,3 +21,4 @@
   * Having the AI explain it was less useful.
 * Printing to UART was surprisingly easy. No Assembly required. Just poke some addresses.
 * Hello world was working. :D
+* I even added halt when done.
