@@ -1,37 +1,33 @@
 # OmgOS
-As RISK5 Unikernel for the learning and art of it.
+As toy rust Unikernel for RISC-V 64.
 
-OmgOS is toy Unikernel mostly ment for lear
+Warning this project will have some heavy works on my computer vibe. I dont know what i am doing. Learning is the point. 
+
+## Project goals
+1. Have fun. 
+2. Learn about the boot process. What happen between power on and main.
+3. Unikernel that can run the tokio ecosystem.
 
 ## Setup developed environment.
+### Setup rust
+1. Have rust installed and working.
+2. Add target: `rustup target add riscv64gc-unknown-none-elf`
+3. (Optional) Install cargo-binutil for objdump: `cargo install cargo-binutils`
+   * Llvm tools was already installed if not: `rustup component add llvm-tools`
+4. `cargo build` should just work. `cargo run` require Qemu.
+
 ### Install QEMU 
 
-I plan to use RISC V 64 bit. So need qemu-system-misc. I have Mint/Ubuntu linux.
+I am running Mint Cinnamon linux.
 
 1. Install Qemu `sudo apt install qemu-system-misc`
-2. Install some test images: `sudo apt install opensbi`
-3. Run test image: 
-  `qemu-system-riscv64 -machine virt -m 256M -nographic \
-    -bios /usr/lib/riscv64-linux-gnu/opensbi/generic/fw_jump.bin`
-4. To quit pres ctrl+a then x in rapid succession.
+2. `cargo run` should work now. 
+3. To quit pres ctrl+a then x in rapid succession.
 
 ### Setup debugging.
+I am using the zed editor. See .zed/debug.json for details.
+
 1. Install gdb-multiarch: `sudo apt install gdb-multiarch`
-2. Run image with debugger paused: 
-  `qemu-system-riscv64 -machine virt -s -S -m 256M -nographic  \
-    -bios /usr/lib/riscv64-linux-gnu/opensbi/generic/fw_jump.bin`
-3. Use the **QEMU RISC-V: Debug** config
-4. You can terminate from debugger.
-
-### Setup rust.
-I assume you have rust installed and running. 
-1. Add target: `rustup target add riscv64gc-unknown-none-elf`
-2. Install cargo-binutil for objdump: `cargo install cargo-binutils`
-3. Install the underlying llvm tools: `rustup component add llvm-tools`
-
-## Run project.
-1. Build using `cargo build`
-2. Run using `qemu-system-riscv64 -machine virt -s -S -m 256M -nographic  \
-    -bios none --kernel ./target/riscv64gc-unknown-none-elf/debug/omg_os`
+2. You need to start the OS. If you use `cargo run -- -S` it will pause at start. 
 3. Use the **QEMU RISC-V: Debug** config
 4. You can terminate from debugger.
