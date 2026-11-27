@@ -25,9 +25,16 @@ I am running Mint Cinnamon linux.
 3. To quit pres ctrl+a then x in rapid succession.
 
 ### Setup debugging.
-I am using the zed editor. See .zed/debug.json for details.
+I am using the zed editor. See <.zed/debug.json> for details.
 
 1. Install gdb-multiarch: `sudo apt install gdb-multiarch`
 2. You need to start the OS. If you use `cargo run -- -S` it will pause at start. 
 3. Use the **QEMU RISC-V: Debug** config
 4. You can terminate from debugger.
+
+## The Journey 
+
+For now its only notes. There if I want to create a blog or talk in the future.
+
+1. [Hello world is not that easy](./journey/hello_world.md)
+2. [Console and the mother of all bugs](./journey/the_bug.md)
