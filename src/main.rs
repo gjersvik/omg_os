@@ -17,17 +17,24 @@ global_asm!(
     .section .text.entry
     .global _start
     _start:
+        # create a norelax block
+        # this stops some optimizations
         .option push
         .option norelax
+
+        # Sets global pointer for faster global access.
         la gp, __global_pointer$
-        .option pop
 
-        .option push
-        .option norelax
+        # Give stack pointer an address so stack work.
         la sp, _stack_top
+
+        # End the norelax block
         .option pop
 
+        # Call the rust function below.
         call start
+
+    # Defensive start will never return. But if do this loop catches it.
     spin:
         j spin
     "#
